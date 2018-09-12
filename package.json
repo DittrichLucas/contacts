@@ -1,0 +1,22 @@
+{
+  "name": "agenda-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DittrichLucas/agenda-node.git"
+  },
+  "author": "Lucas Dittrich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DittrichLucas/agenda-node/issues"
+  },
+  "homepage": "https://github.com/DittrichLucas/agenda-node#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
