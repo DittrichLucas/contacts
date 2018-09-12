@@ -1,10 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var { propEq, find, pick } = require('ramda')
 
 var server = express();
 
 let proximoId = 1;
 let agenda = [];
+let filtrarEntrada = pick(['nome', 'email'])
 
 server.use(bodyParser.json());
 
@@ -15,20 +17,19 @@ server.get('/contatos', (req, res) => {
 
 // Buscar um contato pelo id
 server.get('/contatos/:id', (req, res) => {
+	const id = Number(req.props.id)
+	const contato = find(propEq('id', id), agenda)
 
-	for(let i = 0; i < agenda.length; i++){
-		if(Number(req.params.id) === agenda[i].id){
-			res.send(agenda[i])
-			return;
-		}
+	if (contato) {
+		res.send(contato)
+	} else {
+		res.send({message: 'Contato não encontrado!'})
 	}
-
-	res.send({message: 'Contato não encontrado!'})
 });
 
 // Criar um contato
 server.post('/contatos', (req, res) => {
-	let contato = req.body
+	let contato = filtrarEntrada(req.body)
 
 	if (contato.nome === undefined || contato.email === undefined) {
 		res.send({ message: 'Está faltando o nome ou o email' })
@@ -41,7 +42,7 @@ server.post('/contatos', (req, res) => {
 
 // Alterar um contato pelo id
 server.put('/contatos/:id', (req, res) => {
-	let contato = req.body
+	let contato = filtrarEntrada(req.body)
 
 	if (contato.nome === undefined || contato.email === undefined) {
 		res.send({ message: 'Está faltando o nome ou o email' })
