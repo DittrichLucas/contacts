@@ -1,11 +1,15 @@
 const request = require('supertest')
 const server = require('./index')
+const { init } = require('./db')
+
+beforeAll(() => init)
 
 describe('Agenda', () => {
 	test('Deve estar inicialmente vazia', () => {
 		return request(server)
 			.get('/contatos')
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual([])
 			})
 	})
@@ -15,11 +19,13 @@ describe('Agenda', () => {
 			.post('/contatos')
 			.send({ nome: 'Lucas', email: 'lucas.oliveira@ngi.com.br' })
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual({message: 'Usuário criado!'})
 				return request(server)
 				.get('/contatos')
 			})
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual([{nome: 'Lucas', email: 'lucas.oliveira@ngi.com.br', id: 1}])
 			})
 	})
@@ -29,6 +35,7 @@ describe('Agenda', () => {
 			.post('/contatos')
 			.send({ nome: 'Lucas'})
 			.then(res => {
+				expect(res.status).toBe(400)
 				expect(res.body).toEqual({message: 'Está faltando o nome ou o email'})
 			})
 	})
@@ -38,11 +45,13 @@ describe('Agenda', () => {
 			.put(`/contatos/${1}`)
 			.send({nome: 'João da Silva', email: 'joao@ngi.com.br'})
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual({message: 'Usuário alterado!'})
 				return request(server)
 				.get('/contatos')
 			})
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual([{nome: 'João da Silva', email: 'joao@ngi.com.br', id: 1}])
 			})
 	})
@@ -51,11 +60,13 @@ describe('Agenda', () => {
 		return request(server)
 			.delete(`/contatos/${1}`)
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual({message: 'Usuário deletado!'})
 				return request(server)
 				.get('/contatos')
 			})
 			.then(res => {
+				expect(res.status).toBe(200)
 				expect(res.body).toEqual([])
 			})
 	})
