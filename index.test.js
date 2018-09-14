@@ -36,9 +36,14 @@ describe('Agenda', () => {
 	test('Deve alterar o nome e o email de um contato', () => {
 		return request(server)
 			.put(`/contatos/${1}`)
-			.send({ id: 1, nome: 'João da Silva', email: 'joao@ngi.com.br'})
+			.send({nome: 'João da Silva', email: 'joao@ngi.com.br'})
 			.then(res => {
 				expect(res.body).toEqual({message: 'Usuário alterado!'})
+				return request(server)
+				.get('/contatos')
+			})
+			.then(res => {
+				expect(res.body).toEqual([{nome: 'João da Silva', email: 'joao@ngi.com.br', id: 1}])
 			})
 	})
 
@@ -47,6 +52,11 @@ describe('Agenda', () => {
 			.delete(`/contatos/${1}`)
 			.then(res => {
 				expect(res.body).toEqual({message: 'Usuário deletado!'})
+				return request(server)
+				.get('/contatos')
+			})
+			.then(res => {
+				expect(res.body).toEqual([])
 			})
 	})
 

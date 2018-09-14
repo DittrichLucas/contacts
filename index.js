@@ -71,6 +71,7 @@ server.delete('/contatos/:id', (req, res) => {
 	if (agendaFiltrada.length === agenda.length) {
 		res.send({message: 'Contato não encontrado!'})
 	} else {
+		agenda = agendaFiltrada
 		res.send({message: 'Usuário deletado!'})
 	}
 });
