@@ -1,4 +1,5 @@
 const { Pool } = require('pg')
+const { any } = require('bluebird')
 
 const pool = new Pool({
   user: 'postgres',
@@ -9,16 +10,33 @@ const pool = new Pool({
 })
 
 const createtable = `
+	-- tabela de contatos
 	CREATE TABLE agenda (
 		id serial PRIMARY KEY,
 		nome text NOT NULL,
-		email text NOT NULL
+		email text NOT NULL,
+		user_id integer NOT NULL
+	);
+
+	-- tabela de usuários
+	CREATE TABLE users (
+		id serial PRIMARY KEY,
+		nome text NOT NULL,
+		email text NOT NULL,
+		senha text NOT NULL
+	);
+
+	-- tabela de sessões
+	CREATE TABLE session (
+		token text PRIMARY KEY NOT NULL,
+		user_id integer NOT NULL
 	);
 `
-const init = pool.query('DROP TABLE agenda;')
+const init = any([pool.query('DROP TABLE agenda'), pool.query('DROP TABLE users'), pool.query('DROP TABLE session')])
+	.catch(() => {}) // não precisa tratar erro
 	.then(() => pool.query(createtable))
 	.then(() => {
-		console.log('Tabela criada com sucesso!')
+		console.log('Tabelas criadas com sucesso!')
 	})
 	.catch(err => {
 		console.log(`Falha ao criar tabela: ${err.message}`)
