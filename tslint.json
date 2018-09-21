@@ -1,0 +1,63 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:all",
+        "tslint-eslint-rules"
+    ],
+    "rules": {
+        "max-line-length": {
+            "options": 80,
+            "severity": "warning"
+        },
+        "no-console": false,
+        "semicolon": [true, "never"],
+        "quotemark": [true, "single"],
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+        "object-literal-sort-keys": false,
+        "interface-name": [true, "never-prefix"],
+        "max-classes-per-file": false,
+        "indent": [true, "spaces", 4],
+        "linebreak-style": [true, "LF"],
+        "cyclomatic-complexity": [true, 5],
+        "arrow-return-shorthand": [true, "multiline"],
+        "comment-format": [true, "check-space", "check-uppercase"],
+        "interface-over-type-literal": false,
+        "prefer-switch": [true, {"min-cases": 2}],
+        "no-boolean-literal-compare": true,
+        "file-name-casing": [true, "kebab-case"],
+        "no-floating-promises": [true, "Bluebird"],
+        "await-promise": [true, "PromiseLike", "Bluebird"],
+        "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+        "no-shadowed-variable": false,
+        "typedef": false,
+        "member-ordering": false,
+        "type-literal-delimiter": false,
+        "variable-name": [true, "check-format", "allow-pascal-case"],
+        "no-default-export": false,
+        "only-arrow-functions": false,
+        "no-any": false,
+        "no-magic-numbers": false,
+        "match-default-export-name": false,
+        "strict-boolean-expressions": false,
+        "promise-function-async": false,
+        "newline-per-chained-call": false,
+        "max-file-line-count": false,
+        "member-access": false,
+        "prefer-function-over-method": false,
+        "no-import-side-effect": false,
+        "completed-docs": false,
+        "no-unsafe-any": false,
+        "no-parameter-properties": false,
+
+        // Rules from tslint-eslint-rules
+        "object-curly-spacing": true,
+        "array-bracket-spacing": [
+            true,
+            "never"
+        ],
+
+        // Deprecated - this is already handled by the TS compiler
+        "no-unused-variable": false
+    }
+}

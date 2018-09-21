@@ -1,12 +1,12 @@
-const { Pool } = require('pg')
-const { any } = require('bluebird')
+import { any } from 'bluebird'
+import { Pool } from 'pg'
 
 export const pool = new Pool({
   user: 'postgres',
   host: '192.168.0.119',
   database: 'postgres',
   password: '123456',
-  port: 5432,
+  port: 5432
 })
 
 const createtable = `
@@ -32,12 +32,16 @@ const createtable = `
 		user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
 	);
 `
-export const init = any([pool.query('DROP TABLE agenda'), pool.query('DROP TABLE users'), pool.query('DROP TABLE session')])
-	.catch(() => {}) // não precisa tratar erro
-	.then(() => pool.query(createtable))
-	.then(() => {
-		console.log('Tabelas criadas com sucesso!')
-	})
-	.catch((err: Error) => {
-		console.log(`Falha ao criar tabela: ${err.message}`)
-	})
+export const init = any([
+    pool.query('DROP TABLE agenda'),
+    pool.query('DROP TABLE users'),
+    pool.query('DROP TABLE session')
+    ])
+    .catch(() => { /*não precisa tratar erro*/ })
+    .then(() => pool.query(createtable))
+    .then(() => {
+        console.log('Tabelas criadas com sucesso!')
+    })
+    .catch((err: Error) => {
+        console.log(`Falha ao criar tabela: ${err.message}`)
+    })
