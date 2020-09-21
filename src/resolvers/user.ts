@@ -9,7 +9,7 @@ import {
     Resolver
 } from 'type-graphql'
 import { Context } from '../index'
-import * as service from '../services/usuarios'
+import * as service from '../services/user'
 
 @ObjectType()
 class Status {

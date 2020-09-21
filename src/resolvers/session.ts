@@ -1,6 +1,6 @@
 import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql'
 import { Context } from '..'
-import * as service from '../services/sessoes'
+import * as service from '../services/session'
 
 @ObjectType()
 class Sessao {

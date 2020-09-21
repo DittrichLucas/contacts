@@ -2,9 +2,9 @@ import { ApolloServer } from 'apollo-server'
 import 'reflect-metadata'
 import { buildSchema } from 'type-graphql'
 import { pool as db } from './db'
-import ContactsResolver from './resolvers/contatos'
-import SessionResolver from './resolvers/sessoes'
-import UserResolver from './resolvers/usuarios'
+import ContactsResolver from './resolvers/contact'
+import SessionResolver from './resolvers/session'
+import UserResolver from './resolvers/user'
 
 export type Context = { userId: number }
 
@@ -35,8 +35,7 @@ async function run() {
         authChecker })
     const server = new ApolloServer({ schema, context })
 
-    return server.listen(3000)
-}
+    return server.listen(3000)usuarios
 
 run().then(() => {
     console.log('Servidor GraphQL rodando...')
