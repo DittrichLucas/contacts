@@ -10,29 +10,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DittrichLucas/agenda-node.git"
+    "url": "git+https://github.com/DittrichLucas/schedule.git"
   },
   "author": "Lucas Dittrich",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DittrichLucas/agenda-node/issues"
+    "url": "https://github.com/DittrichLucas/schedule/issues"
   },
-  "homepage": "https://github.com/DittrichLucas/agenda-node#readme",
+  "homepage": "https://github.com/DittrichLucas/schedule#readme",
   "dependencies": {
-    "apollo-server": "^2.1.0",
-    "bluebird": "^3.5.2",
-    "pg": "^8.3.3",
-    "ramda": "^0.27.1",
-    "reflect-metadata": "^0.1.12",
-    "type-graphql": "^1.0.0"
+    "apollo-server": "2.1.0",
+    "bluebird": "3.5.2",
+    "pg": "8.3.3",
+    "ramda": "0.27.1",
+    "reflect-metadata": "0.1.12",
+    "type-graphql": "1.0.0"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.24",
-    "@types/pg": "^7.4.10",
-    "@types/ramda": "^0.27.17",
-    "jest": "^26.4.2",
-    "tslint": "^6.1.3",
-    "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^4.0.3"
+    "@types/bluebird": "3.5.24",
+    "@types/pg": "7.4.10",
+    "@types/ramda": "0.27.17",
+    "jest": "26.4.2",
+    "tslint": "6.1.3",
+    "tslint-eslint-rules": "5.4.0",
+    "typescript": "4.0.3"
   }
 }
