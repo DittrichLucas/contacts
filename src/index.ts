@@ -11,21 +11,18 @@ export type Context = { userId: number }
 
 async function context(ctx: any): Promise<Context> {
     const token = ctx.req.headers.authorization || ''
-    console.log(ctx.req.headers)
     const query = 'SELECT * FROM session WHERE token = $1'
-    const resposta = await db.query(query, [token])
+    const response = await db.query(query, [token])
 
-    console.log(resposta.rows)
-
-    if (resposta.rows.length === 0) {
+    if (response.rows.length === 0) {
         return ctx
     }
 
-    return { ...ctx, userId: resposta.rows[0].user_id }
+    return { ...ctx, userId: response.rows[0].user_id }
 }
 
-function authChecker(dados: any) {
-    const context = dados.context
+function authChecker(data: any) {
+    const context = data.context
 
     return context.userId !== undefined
 }
@@ -40,7 +37,7 @@ async function run() {
 }
 
 run().then(() => {
-    console.log('Servidor GraphQL rodando...')
+    console.log('GraphQL server running...')
 }).catch(() => {
-    console.log('Não foi possível conectar-se ao servidor...')
+    console.log('Could not connect to the server...')
 })
