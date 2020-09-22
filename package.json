@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/DittrichLucas/schedule#readme",
   "dependencies": {
-    "apollo-server": "2.1.0",
+    "apollo-server": "2.14.2",
     "bluebird": "3.5.2",
     "pg": "8.3.3",
     "ramda": "0.27.1",
