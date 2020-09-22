@@ -16,7 +16,7 @@ export default class SessionResolver {
         @Arg('email') email: string,
         @Arg('password') password: string
     ) {
-        return service.criarSessao(email, password)
+        return service.create(email, password)
     }
 
     @Mutation(_ => Session)
@@ -24,7 +24,7 @@ export default class SessionResolver {
         @Arg('token') token: string,
         @Ctx() context: Context
     ) {
-        return service.excluirSessao(token, context.userId)
+        return service.remove(token, context.userId)
     }
 
 }
