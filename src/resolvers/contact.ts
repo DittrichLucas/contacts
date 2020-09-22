@@ -39,7 +39,7 @@ export default class ContactsResolver {
     @Authorized()
     @Query(_ => [Contact])
     async contact(@Ctx() context: Context) {
-        return service.findById(context.userId)
+        return service.findByUserId(context.userId)
     }
 
     @Authorized()
@@ -48,7 +48,7 @@ export default class ContactsResolver {
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.findByUserId(id, context.userId)
+        return service.findById(id, context.userId)
     }
 
     @Authorized()
