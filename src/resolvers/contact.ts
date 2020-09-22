@@ -9,7 +9,7 @@ import {
     Resolver
 } from 'type-graphql'
 import { Context } from '..'
-import * as service from '../services/contatos'
+import * as service from '../services/contact'
 
 @ObjectType()
 class Ret {
