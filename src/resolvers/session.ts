@@ -4,7 +4,7 @@ import { Context } from '..'
 import * as service from '../services/session'
 
 @ObjectType()
-class Sessao {
+class Session {
     @Field()
     message: string
 }
@@ -12,15 +12,15 @@ class Sessao {
 @Resolver()
 export default class SessionResolver {
     @Mutation(_ => String)
-    async criarSessao(
+    async create(
         @Arg('email') email: string,
-        @Arg('senha') senha: string
+        @Arg('password') password: string
     ) {
-        return service.criarSessao(email, senha)
+        return service.criarSessao(email, password)
     }
 
-    @Mutation(_ => Sessao)
-    async excluirSessao(
+    @Mutation(_ => Session)
+    async delete(
         @Arg('token') token: string,
         @Ctx() context: Context
     ) {
