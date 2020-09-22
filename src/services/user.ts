@@ -1,63 +1,62 @@
 import { pool as db } from '../db'
 
-export async function users() {
-    const result = await db.query('SELECT * FROM users')
-
-    return result.rows
-}
-
-export async function usersId(id: number) {
-    const text = 'SELECT * FROM users WHERE id = $1'
-    const values = [id]
-
-    try {
-        await db.query(text, values)
-
-        return text
-    } catch (err) {
-        return { message: 'Está faltando o nome, o email ou a senha!' }
-    }
-}
-
-export async function criarUsuario(nome: string, email: string, senha: string) {
-    const text = `INSERT INTO users (nome, email, senha)
+export async function create(name: string, email: string, password: string) {
+    const text = `INSERT INTO users (name, email, password)
         VALUES ($1, $2, $3) RETURNING *`
-    const values = [nome, email, senha]
+        const values = [name, email, password]
 
     try {
         await db.query(text, values)
 
-        return { message: 'Usuário criado!' }
+        return { message: 'Created user!' }
     } catch (err) {
-        return { message: 'Está faltando o nome, o email ou a senha!' }
+        return { message: 'Name, email or password is missing!' }
     }
 }
 
-export async function alterarUsuario(
+export async function update(
     id: number,
-    nome: string,
+    name: string,
     email: string,
-    senha: string
-) {
+    password: string
+    ) {
     const text = `UPDATE users
-        SET nome = $1, email = $2, senha = $3
+        SET name = $1, email = $2, password = $3
         WHERE id = $4 RETURNING *`
-    const values = [nome, email, senha, id]
+    const values = [name, email, password, id]
 
     try {
         await db.query(text, values)
 
-        return { message: 'Usuário alterado!' }
+        return { message: 'Updated user!' }
     } catch (err) {
-        return { message: 'Usuário não encontrado!' }
+        return { message: 'User not found!' }
     }
 }
 
-export async function excluirUsuario(id: number) {
-    const text = 'DELETE FROM users WHERE id = $1 RETURNING *'
-    const value = [id]
-    await db.query(text, value)
+    export async function remove(id: number) {
+        const text = 'DELETE FROM users WHERE id = $1 RETURNING *'
+        const value = [id]
+        await db.query(text, value)
 
-    return { message: 'Usuário deletado!' }
+        return { message: 'Usuário deletado!' }
+    }
 
-}
+    export async function findAll() {
+        const result = await db.query('SELECT * FROM users')
+
+        return result.rows
+    }
+
+    export async function findById(id: number) {
+        const text = 'SELECT * FROM users WHERE id = $1'
+        const values = [id]
+
+        try {
+            await db.query(text, values)
+
+            return text
+        } catch (err) {
+            return { message: 'Name, email or password is missing!' }
+        }
+    }

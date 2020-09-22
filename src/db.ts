@@ -2,46 +2,46 @@ import { any } from 'bluebird'
 import { Pool } from 'pg'
 
 export const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'postgres',
-  password: '12345',
-  port: 5432
+    user: 'postgres',
+    host: 'localhost',
+    database: 'postgres',
+    password: '12345',
+    port: 5432
 })
 
 const createtable = `
-	-- tabela de usuários
+	-- users table
 	CREATE TABLE users (
 		id serial PRIMARY KEY,
-		nome text NOT NULL,
+		name text NOT NULL,
 		email text NOT NULL,
-		senha text NOT NULL
+		password text NOT NULL
 	);
 
-	-- tabela de contatos
-	CREATE TABLE agenda (
+	-- contact table
+	CREATE TABLE contacts (
 		id serial PRIMARY KEY,
-		nome text NOT NULL,
+		name text NOT NULL,
 		email text NOT NULL,
 		user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
 	);
 
-	-- tabela de sessões
+	-- session table
 	CREATE TABLE session (
 		token text PRIMARY KEY NOT NULL,
 		user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
 	);
 `
 export const init = any([
-    pool.query('DROP TABLE agenda'),
+    pool.query('DROP TABLE contacts'),
     pool.query('DROP TABLE users'),
     pool.query('DROP TABLE session')
     ])
-    .catch(() => { /*não precisa tratar erro*/ })
+    .catch(() => { /*withou error handling*/ })
     .then(() => pool.query(createtable))
     .then(() => {
-        console.log('Tabelas criadas com sucesso!')
+        console.log('Tables created successfully!')
     })
     .catch((err: Error) => {
-        console.log(`Falha ao criar tabela: ${err.message}`)
+        console.log(`Failed to create tables: ${err.message}`)
     })
