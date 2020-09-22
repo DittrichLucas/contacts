@@ -39,7 +39,7 @@ export default class ContactsResolver {
     @Authorized()
     @Query(_ => [Contact])
     async contact(@Ctx() context: Context) {
-        return service.listarContatos(context.userId)
+        return service.findById(context.userId)
     }
 
     @Authorized()
@@ -48,7 +48,7 @@ export default class ContactsResolver {
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.listarContatosId(id, context.userId)
+        return service.findByUserId(id, context.userId)
     }
 
     @Authorized()
@@ -58,7 +58,7 @@ export default class ContactsResolver {
         @Arg('email') email: string,
         @Ctx() context: Context
     ) {
-        return service.criarContato(name, email, context.userId)
+        return service.create(name, email, context.userId)
     }
 
     @Authorized()
@@ -69,7 +69,7 @@ export default class ContactsResolver {
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.alterarContato(name, email, id, context.userId)
+        return service.update(name, email, id, context.userId)
     }
 
     @Authorized()
@@ -78,7 +78,7 @@ export default class ContactsResolver {
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.excluirContato(id, context.userId)
+        return service.remove(id, context.userId)
     }
 
 }

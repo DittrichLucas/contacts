@@ -1,6 +1,6 @@
 import { pool as db } from '../db'
 
-export async function listarContatos(userId: number) {
+export async function findById(userId: number) {
     const text = 'SELECT * FROM agenda WHERE user_id = $1;'
     const value = [userId]
     const res = await db.query(text, value)
@@ -8,7 +8,7 @@ export async function listarContatos(userId: number) {
     return res.rows
 }
 
-export async function listarContatosId(id: number, userId: number) {
+export async function findByUserId(id: number, userId: number) {
     const text = 'SELECT * FROM agenda WHERE id = $1 user_id = $2;'
     const value = [id, userId]
     const res = await db.query(text, value)
@@ -16,7 +16,7 @@ export async function listarContatosId(id: number, userId: number) {
     return res.rows
 }
 
-export async function criarContato(
+export async function create(
     nome: string,
     email: string,
     userId: number
@@ -30,7 +30,7 @@ export async function criarContato(
     return { message: 'Usuário criado!' }
 }
 
-export async function alterarContato(
+export async function update(
     nome: string,
     email: string,
     id: number,
@@ -46,7 +46,7 @@ export async function alterarContato(
     return { message: 'Usuário alterado!' }
 }
 
-export async function excluirContato(id: number, userId: number) {
+export async function remove(id: number, userId: number) {
     const text = 'DELETE FROM agenda WHERE id = $1 AND user_id = $2 RETURNING *'
     const value = [id, userId]
     const res = await db.query(text, value)
