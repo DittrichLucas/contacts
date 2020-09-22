@@ -19,56 +19,56 @@ class Status {
 }
 
 @ObjectType()
-class Usuario {
+class User {
     @Field()
     id: number
 
     @Field()
-    nome: string
+    name: string
 
     @Field()
     email: string
 
     @Field()
-    senha: string
+    password: string
 }
 
 @Resolver()
 export default class UserResolver {
-    @Query(_ => [Usuario])
-    async users() {
-        return service.users()
+    @Query(_ => [User])
+    async findAll() {
+        return service.findAll()
     }
 
-    @Query(_ => [Usuario])
-    async usersId(@Arg('id') id: number) {
-        return service.usersId(id)
+    @Query(_ => [User])
+    async findById(@Arg('id') id: number) {
+        return service.findById(id)
     }
 
     @Mutation(_ => Status)
-    async criarUsuario(
-        @Arg('nome') nome: string,
+    async create(
+        @Arg('name') name: string,
         @Arg('email') email: string,
-        @Arg('senha') senha: string
+        @Arg('password') password: string
     ) {
-        return service.criarUsuario(nome, email, senha)
+        return service.create(name, email, password)
     }
 
     @Authorized()
     @Mutation(_ => Status)
-    async alterarUsuario(
-        @Arg('nome') nome: string,
+    async update(
+        @Arg('name') name: string,
         @Arg('email') email: string,
-        @Arg('senha') senha: string,
+        @Arg('password') password: string,
         @Ctx() context: Context
         ) {
-        return service.alterarUsuario(context.userId, nome, email, senha)
+        return service.update(context.userId, name, email, password)
     }
 
     @Authorized()
     @Mutation(_ => Status)
-    async excluirUsuario(@Ctx() context: Context) {
-        return service.excluirUsuario(context.userId)
+    async remove(@Ctx() context: Context) {
+        return service.remove(context.userId)
     }
 
 }
