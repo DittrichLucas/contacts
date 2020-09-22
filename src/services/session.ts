@@ -1,4 +1,5 @@
 import * as crypto from 'crypto'
+
 import { pool as db } from '../db'
 
 export async function criarSessao(email: string, senha: string) {

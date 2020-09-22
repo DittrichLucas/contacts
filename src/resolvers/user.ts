@@ -8,6 +8,7 @@ import {
     Query,
     Resolver
 } from 'type-graphql'
+
 import { Context } from '../index'
 import * as service from '../services/user'
 
