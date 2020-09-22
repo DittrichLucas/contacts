@@ -13,18 +13,18 @@ import { Context } from '..'
 import * as service from '../services/contact'
 
 @ObjectType()
-class Ret {
+class Response {
     @Field()
     message: string
 }
 
 @ObjectType()
-class Contato {
+class Contact {
     @Field()
     id: number
 
     @Field()
-    nome: string
+    name: string
 
     @Field()
     email: string
@@ -37,14 +37,14 @@ class Contato {
 export default class ContactsResolver {
 
     @Authorized()
-    @Query(_ => [Contato])
-    async contatos(@Ctx() context: Context) {
+    @Query(_ => [Contact])
+    async contact(@Ctx() context: Context) {
         return service.listarContatos(context.userId)
     }
 
     @Authorized()
-    @Query(_ => [Contato])
-    async contatosId(
+    @Query(_ => [Contact])
+    async contactId(
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
@@ -52,29 +52,29 @@ export default class ContactsResolver {
     }
 
     @Authorized()
-    @Mutation(_ => Ret)
-    async criarContatos(
-        @Arg('nome') nome: string,
+    @Mutation(_ => Response)
+    async create(
+        @Arg('name') name: string,
         @Arg('email') email: string,
         @Ctx() context: Context
     ) {
-        return service.criarContato(nome, email, context.userId)
+        return service.criarContato(name, email, context.userId)
     }
 
     @Authorized()
-    @Mutation(_ => Ret)
-    async alterarContatos(
-        @Arg('nome') nome: string,
+    @Mutation(_ => Response)
+    async update(
+        @Arg('name') name: string,
         @Arg('email') email: string,
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.alterarContato(nome, email, id, context.userId)
+        return service.alterarContato(name, email, id, context.userId)
     }
 
     @Authorized()
-    @Mutation(_ => Ret)
-    async excluirContatos(
+    @Mutation(_ => Response)
+    async delete(
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
