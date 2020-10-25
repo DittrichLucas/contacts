@@ -12,7 +12,7 @@ class Session {
 @Resolver()
 export default class SessionResolver {
     @Mutation(_ => String)
-    async create(
+    async createSession(
         @Arg('email') email: string,
         @Arg('password') password: string
     ) {
@@ -20,11 +20,10 @@ export default class SessionResolver {
     }
 
     @Mutation(_ => Session)
-    async delete(
+    async deleteSession(
         @Arg('token') token: string,
         @Ctx() context: Context
     ) {
         return service.remove(token, context.userId)
     }
-
 }

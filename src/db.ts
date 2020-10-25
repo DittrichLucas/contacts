@@ -1,4 +1,3 @@
-import { any } from 'bluebird'
 import { Pool } from 'pg'
 
 export const pool = new Pool({
@@ -9,39 +8,35 @@ export const pool = new Pool({
     port: 5432
 })
 
-const createtable = `
-	-- users table
-	CREATE TABLE users (
-		id serial PRIMARY KEY,
-		name text NOT NULL,
-		email text NOT NULL,
-		password text NOT NULL
-	);
+const createTable = `
+    -- users table
+    CREATE TABLE IF NOT EXISTS users (
+        id serial PRIMARY KEY,
+        name text NOT NULL,
+        email text NOT NULL,
+        password text NOT NULL
+    );
 
-	-- contact table
-	CREATE TABLE contacts (
-		id serial PRIMARY KEY,
-		name text NOT NULL,
-		email text NOT NULL,
-		user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
-	);
+    -- contact table
+    CREATE TABLE IF NOT EXISTS contacts (
+        id serial PRIMARY KEY,
+        name text NOT NULL,
+        email text NOT NULL,
+        user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
+    );
 
-	-- session table
-	CREATE TABLE session (
-		token text PRIMARY KEY NOT NULL,
-		user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
-	);
+    -- session table
+    CREATE TABLE IF NOT EXISTS session (
+        token text PRIMARY KEY NOT NULL,
+        user_id integer NOT NULL REFERENCES users("id") ON DELETE CASCADE
+    );
 `
-export const init = any([
-    pool.query('DROP TABLE contacts'),
-    pool.query('DROP TABLE users'),
-    pool.query('DROP TABLE session')
-    ])
-    .catch(() => { /*withou error handling*/ })
-    .then(() => pool.query(createtable))
-    .then(() => {
+
+export async function init(): Promise<void> {
+    try {
+        await pool.query(createTable)
         console.log('Tables created successfully!')
-    })
-    .catch((err: Error) => {
-        console.log(`Failed to create tables: ${err.message}`)
-    })
+    } catch (error) {
+        console.log('Failed to create tables', error)
+    }
+}

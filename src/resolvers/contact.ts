@@ -1,3 +1,4 @@
+import { Inject, Service } from 'typedi'
 import {
     Arg,
     Authorized,
@@ -10,7 +11,7 @@ import {
 } from 'type-graphql'
 
 import { Context } from '..'
-import * as service from '../services/contact'
+import ContactService from '../services/contact'
 
 @ObjectType()
 class Response {
@@ -33,52 +34,55 @@ class Contact {
     userId: number
 }
 
+@Service()
 @Resolver()
 export default class ContactsResolver {
+    constructor(
+        @Inject(() => ContactService) private readonly contactService: ContactService
+    ) {}
 
     @Authorized()
     @Query(_ => [Contact])
-    async contact(@Ctx() context: Context) {
-        return service.findByUserId(context.userId)
+    async findContacts(@Ctx() context: Context) {
+        return this.contactService.findByUserId(context.userId)
     }
 
     @Authorized()
     @Query(_ => [Contact])
-    async contactId(
+    async findContact(
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.findById(id, context.userId)
+        return this.contactService.findById(id, context.userId)
     }
 
     @Authorized()
     @Mutation(_ => Response)
-    async create(
+    async createContact(
         @Arg('name') name: string,
         @Arg('email') email: string,
         @Ctx() context: Context
     ) {
-        return service.create(name, email, context.userId)
+        return this.contactService.create(name, email, context.userId)
     }
 
     @Authorized()
     @Mutation(_ => Response)
-    async update(
+    async updateContact(
         @Arg('name') name: string,
         @Arg('email') email: string,
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.update(name, email, id, context.userId)
+        return this.contactService.update(name, email, id, context.userId)
     }
 
     @Authorized()
     @Mutation(_ => Response)
-    async delete(
+    async deleteContact(
         @Arg('id') id: number,
         @Ctx() context: Context
     ) {
-        return service.remove(id, context.userId)
+        return this.contactService.remove(id, context.userId)
     }
-
 }

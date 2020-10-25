@@ -1,43 +1,49 @@
-import { ApolloServer } from 'apollo-server'
 import 'reflect-metadata'
-import { buildSchema } from 'type-graphql'
 
-import { pool as db } from './db'
-import ContactsResolver from './resolvers/contact'
+import { ApolloServer } from 'apollo-server'
+import type { Request } from 'express'
+import { Container } from 'typedi'
+import { buildSchema, ResolverData } from 'type-graphql'
+
+import { init, pool as db } from './db'
+import ContactResolver from './resolvers/contact'
 import SessionResolver from './resolvers/session'
 import UserResolver from './resolvers/user'
 
 export type Context = { userId: number }
 
-async function context(ctx: any): Promise<Context> {
-    const token = ctx.req.headers.authorization || ''
+type OptionalUserContext = Partial<Context>
+
+async function context(context: { req: Request }): Promise<typeof context & OptionalUserContext> {
+    const token = context.req.headers.authorization || ''
     const query = 'SELECT * FROM session WHERE token = $1'
     const response = await db.query(query, [token])
 
-    if (response.rows.length === 0) {
-        return ctx
-    }
+    const [firstRow]: { user_id: number }[] = response.rows
 
-    return { ...ctx, userId: response.rows[0].user_id }
+    return firstRow === undefined
+        ? context
+        : { ...context, userId: firstRow.user_id }
 }
 
-function authChecker(data: any) {
-    const context = data.context
-
+function authChecker({ context }: ResolverData<OptionalUserContext>) {
     return context.userId !== undefined
 }
 
 async function run() {
     const schema = await buildSchema({
-        resolvers: [UserResolver, SessionResolver, ContactsResolver],
-        authChecker })
+        resolvers: [ContactResolver, SessionResolver, UserResolver],
+        authChecker,
+        container: Container
+    })
+
     const server = new ApolloServer({ schema, context })
 
     return server.listen(3000)
 }
 
-run().then(() => {
+init().then(run).then(() => {
     console.log('GraphQL server running...')
-}).catch(() => {
-    console.log('Could not connect to the server...')
+}).catch((error: Error) => {
+    console.error('Could not connect to the server', error)
 })

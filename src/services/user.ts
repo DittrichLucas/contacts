@@ -34,29 +34,29 @@ export async function update(
     }
 }
 
-    export async function remove(id: number) {
-        const text = 'DELETE FROM users WHERE id = $1 RETURNING *'
-        const value = [id]
-        await db.query(text, value)
+export async function remove(id: number) {
+    const text = 'DELETE FROM users WHERE id = $1 RETURNING *'
+    const value = [id]
+    await db.query(text, value)
 
-        return { message: 'Usuário deletado!' }
+    return { message: 'Removed user!' }
+}
+
+export async function findAll() {
+    const result = await db.query('SELECT * FROM users')
+
+    return result.rows
+}
+
+export async function findById(id: number) {
+    const text = 'SELECT * FROM users WHERE id = $1'
+    const values = [id]
+
+    try {
+        await db.query(text, values)
+
+        return text
+    } catch (err) {
+        return { message: 'Name, email or password is missing!' }
     }
-
-    export async function findAll() {
-        const result = await db.query('SELECT * FROM users')
-
-        return result.rows
-    }
-
-    export async function findById(id: number) {
-        const text = 'SELECT * FROM users WHERE id = $1'
-        const values = [id]
-
-        try {
-            await db.query(text, values)
-
-            return text
-        } catch (err) {
-            return { message: 'Name, email or password is missing!' }
-        }
-    }
+}
