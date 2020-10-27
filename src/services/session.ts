@@ -5,10 +5,10 @@ import { pool as db } from '../db'
 
 @Service()
 export default class SessionService {
-    async login(email: string, password: string) {
+    async login(email: string, password: string): Promise<string> {
         const query = 'SELECT * FROM users WHERE email = $1'
-        const resUser = await db.query(query, [email])
-        const user = resUser.rows[0]
+        const { rows } = await db.query(query, [email])
+        const user = rows[0]
 
         if (user && user.password === password) {
             const query = 'INSERT INTO session (token, user_id) VALUES ($1, $2)'
@@ -21,10 +21,10 @@ export default class SessionService {
         }
     }
 
-    async logout(token: string, userId: number) {
+    async logout(token: string, userId: number): Promise<{ message: string }> {
         const text = `DELETE FROM session WHERE token = $1 AND user_id = $2 RETURNING *`
-        const res = await db.query(text, [token, userId])
-        const message = res.rows.length === 0 ? 'Contact not found!' : 'Closed session!'
+        const { rows } = await db.query(text, [token, userId])
+        const message = rows.length === 0 ? 'Contact not found!' : 'Closed session!'
         return { message }
     }
 }
