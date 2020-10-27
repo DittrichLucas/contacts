@@ -1,7 +1,8 @@
 import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql'
+import { Inject } from 'typedi'
 
 import { Context } from '..'
-import * as service from '../services/session'
+import SessionService from '../services/session'
 
 @ObjectType()
 class Session {
@@ -11,12 +12,16 @@ class Session {
 
 @Resolver()
 export default class SessionResolver {
+    constructor(
+        @Inject(() => SessionService) private readonly session: SessionService
+    ) {}
+
     @Mutation(_ => String)
     async createSession(
         @Arg('email') email: string,
         @Arg('password') password: string
     ) {
-        return service.create(email, password)
+        return this.session.login(email, password)
     }
 
     @Mutation(_ => Session)
@@ -24,6 +29,6 @@ export default class SessionResolver {
         @Arg('token') token: string,
         @Ctx() context: Context
     ) {
-        return service.remove(token, context.userId)
+        return this.session.logout(token, context.userId)
     }
 }
