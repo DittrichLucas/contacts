@@ -8,9 +8,10 @@ import {
     Query,
     Resolver
 } from 'type-graphql'
+import { Inject } from 'typedi'
 
 import { Context } from '../index'
-import * as service from '../services/user'
+import UserService from '../services/user'
 
 @ObjectType()
 class Status {
@@ -35,14 +36,18 @@ class User {
 
 @Resolver()
 export default class UserResolver {
+    constructor(
+        @Inject(() => UserService) private readonly userService: UserService
+    ) {}
+
     @Query(_ => [User])
     async findAll() {
-        return service.findAll()
+        return this.userService.findAll()
     }
 
     @Query(_ => [User])
     async findById(@Arg('id') id: number) {
-        return service.findById(id)
+        return this.userService.findById(id)
     }
 
     @Mutation(_ => Status)
@@ -51,7 +56,7 @@ export default class UserResolver {
         @Arg('email') email: string,
         @Arg('password') password: string
     ) {
-        return service.create(name, email, password)
+        return this.userService.create(name, email, password)
     }
 
     @Authorized()
@@ -62,13 +67,13 @@ export default class UserResolver {
         @Arg('password') password: string,
         @Ctx() context: Context
         ) {
-        return service.update(context.userId, name, email, password)
+        return this.userService.update(context.userId, name, email, password)
     }
 
     @Authorized()
     @Mutation(_ => Status)
     async remove(@Ctx() context: Context) {
-        return service.remove(context.userId)
+        return this.userService.remove(context.userId)
     }
 
 }

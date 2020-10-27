@@ -1,62 +1,39 @@
+import { Service } from 'typedi'
 import { pool as db } from '../db'
 
-export async function create(name: string, email: string, password: string) {
-    const text = `INSERT INTO users (name, email, password)
-        VALUES ($1, $2, $3) RETURNING *`
-        const values = [name, email, password]
+type MessagePromise = Promise<{ message: string }>
 
-    try {
-        await db.query(text, values)
-
-        return { message: 'Created user!' }
-    } catch (err) {
-        return { message: 'Name, email or password is missing!' }
+@Service()
+export default class UserService {
+    async create(name: string, email: string, password: string): MessagePromise {
+        const text = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *'
+        const { rows } = await db.query(text, [name, email, password])
+        const message = rows.length === 0 ? 'Name, email or password is missing!' : 'Created user!'
+        return { message }
     }
-}
 
-export async function update(
-    id: number,
-    name: string,
-    email: string,
-    password: string
-    ) {
-    const text = `UPDATE users
-        SET name = $1, email = $2, password = $3
-        WHERE id = $4 RETURNING *`
-    const values = [name, email, password, id]
-
-    try {
-        await db.query(text, values)
-
-        return { message: 'Updated user!' }
-    } catch (err) {
-        return { message: 'User not found!' }
+    async update(id: number, name: string, email: string, password: string): MessagePromise {
+        const text = 'UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *'
+        const { rows } = await db.query(text, [name, email, password, id])
+        const message = rows.length === 0 ? 'User not found!' : 'Updated user!'
+        return { message }
     }
-}
 
-export async function remove(id: number) {
-    const text = 'DELETE FROM users WHERE id = $1 RETURNING *'
-    const value = [id]
-    await db.query(text, value)
+    async remove(id: number): MessagePromise {
+        const text = 'DELETE FROM users WHERE id = $1 RETURNING *'
+        await db.query(text, [id])
+        return { message: 'Removed user!' }
+    }
 
-    return { message: 'Removed user!' }
-}
+    async findAll(): Promise<unknown[]> {
+        const result = await db.query('SELECT * FROM users')
+        return result.rows
+    }
 
-export async function findAll() {
-    const result = await db.query('SELECT * FROM users')
-
-    return result.rows
-}
-
-export async function findById(id: number) {
-    const text = 'SELECT * FROM users WHERE id = $1'
-    const values = [id]
-
-    try {
-        await db.query(text, values)
-
-        return text
-    } catch (err) {
-        return { message: 'Name, email or password is missing!' }
+    async findById(id: number): Promise<typeof text | MessagePromise> {
+        const text = 'SELECT * FROM users WHERE id = $1'
+        const { rows } = await db.query(text, [id])
+        const message = 'Name, email or password is missing!'
+        return rows.length === 0 ? { message } : text
     }
 }

@@ -9,8 +9,8 @@ TODOS:
 - [X] Alterar todas as variáveis para inglês
 - [ ] Criar classes para contatos, sessoes e usuarios
     - [x] Contacts
-    - [ ] Sessions
-    - [ ] Users
+    - [x] Sessions
+    - [x] Users
 - [x] Vou precisar usar o typedi para injetar as classes
 - [ ] Create models for all entities integrating with TypeORM (Get rid of Postgres dependency (!))
 - [ ] Create repositories for specific operations
