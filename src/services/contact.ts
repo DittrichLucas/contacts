@@ -28,7 +28,6 @@ export default class ContactService {
     async findByUserId(userId: number): Promise<unknown[]> {
         const text = 'SELECT * FROM contacts WHERE user_id = $1;'
         const { rows } = await db.query(text, [userId])
-        console.log(rows)
         return rows
     }
 

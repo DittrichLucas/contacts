@@ -1,9 +1,10 @@
 import * as crypto from 'crypto'
+import { Service } from 'typedi'
 
 import { pool as db } from '../db'
 
+@Service()
 export default class SessionService {
-
     async login(email: string, password: string) {
         const query = 'SELECT * FROM users WHERE email = $1'
         const resUser = await db.query(query, [email])
@@ -21,16 +22,10 @@ export default class SessionService {
     }
 
     async logout(token: string, userId: number) {
-        const text = `DELETE FROM session
-            WHERE token = $1 AND user_id = $2 RETURNING *`
-        const value = [token, userId]
-        const res = await db.query(text, value)
-
-        if (res.rows.length === 0) {
-            return { message: 'Contact not found!' }
-        }
-
-        return { message: 'Closed session!' }
+        const text = `DELETE FROM session WHERE token = $1 AND user_id = $2 RETURNING *`
+        const res = await db.query(text, [token, userId])
+        const message = res.rows.length === 0 ? 'Contact not found!' : 'Closed session!'
+        return { message }
     }
 }
 

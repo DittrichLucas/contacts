@@ -1,4 +1,5 @@
 import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql'
+import { Inject } from 'typedi'
 
 import { Context } from '..'
 import SessionService from '../services/session'
@@ -11,7 +12,9 @@ class Session {
 
 @Resolver()
 export default class SessionResolver {
-    private readonly session = new SessionService()
+    constructor(
+        @Inject(() => SessionService) private readonly session: SessionService
+    ) {}
 
     @Mutation(_ => String)
     async createSession(
