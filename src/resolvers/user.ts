@@ -11,13 +11,8 @@ import {
 import { Inject } from 'typedi'
 
 import { Context } from '../index'
+import { Contact } from '../services/contact'
 import UserService from '../services/user'
-
-@ObjectType()
-class Status {
-    @Field()
-    message: string
-}
 
 @ObjectType()
 class User {
@@ -41,39 +36,44 @@ export default class UserResolver {
     ) {}
 
     @Query(_ => [User])
-    async findAll() {
+    async findAll(): Promise<User[]> {
         return this.userService.findAll()
     }
 
     @Query(_ => [User])
-    async findById(@Arg('id') id: number) {
+    async findById(@Arg('id') id: number): Promise<User> {
         return this.userService.findById(id)
     }
 
-    @Mutation(_ => Status)
-    async create(
+    @Authorized()
+    @Query(_ => User)
+    async findContacts(@Ctx() context: Context): Promise<Contact[]> {
+        return this.userService.findContacts(context.userId)
+    }
+
+    @Mutation(_ => User)
+    async createUser(
         @Arg('name') name: string,
         @Arg('email') email: string,
         @Arg('password') password: string
-    ) {
-        return this.userService.create(name, email, password)
+    ): Promise<Omit<User, 'id'>> {
+        return this.userService.create({ name, email, password })
     }
 
     @Authorized()
-    @Mutation(_ => Status)
-    async update(
+    @Mutation(_ => User)
+    async updateUser(
         @Arg('name') name: string,
         @Arg('email') email: string,
         @Arg('password') password: string,
         @Ctx() context: Context
-        ) {
-        return this.userService.update(context.userId, name, email, password)
+    ): Promise<User> {
+        return this.userService.update(context.userId, { name, email, password })
     }
 
     @Authorized()
-    @Mutation(_ => Status)
-    async remove(@Ctx() context: Context) {
+    @Mutation(_ => User)
+    async removeUser(@Ctx() context: Context): Promise<User> {
         return this.userService.remove(context.userId)
     }
-
 }

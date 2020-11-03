@@ -9,4 +9,3 @@ services:
             POSTGRES_DB: schedule
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: 12345
-

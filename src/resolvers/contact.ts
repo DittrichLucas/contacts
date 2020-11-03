@@ -14,13 +14,7 @@ import { Context } from '..'
 import ContactService from '../services/contact'
 
 @ObjectType()
-class Response {
-    @Field()
-    message: string
-}
-
-@ObjectType()
-class Contact {
+export class Contact {
     @Field()
     id: number
 
@@ -42,47 +36,41 @@ export default class ContactsResolver {
     ) {}
 
     @Authorized()
-    @Query(_ => [Contact])
-    async findContacts(@Ctx() context: Context) {
-        return this.contactService.findByUserId(context.userId)
-    }
-
-    @Authorized()
-    @Query(_ => [Contact])
+    @Query(_ => Contact)
     async findContact(
         @Arg('id') id: number,
         @Ctx() context: Context
-    ) {
+    ): Promise<Contact> {
         return this.contactService.findById(id, context.userId)
     }
 
     @Authorized()
-    @Mutation(_ => Response)
+    @Mutation(_ => Contact)
     async createContact(
         @Arg('name') name: string,
         @Arg('email') email: string,
         @Ctx() context: Context
-    ) {
-        return this.contactService.create(name, email, context.userId)
+    ): Promise<Contact> {
+        return this.contactService.create(context.userId, { name, email })
     }
 
     @Authorized()
-    @Mutation(_ => Response)
+    @Mutation(_ => Contact)
     async updateContact(
         @Arg('name') name: string,
         @Arg('email') email: string,
         @Arg('id') id: number,
         @Ctx() context: Context
-    ) {
-        return this.contactService.update(name, email, id, context.userId)
+    ): Promise<Contact> {
+        return this.contactService.update(context.userId, { name, email, id })
     }
 
     @Authorized()
-    @Mutation(_ => Response)
+    @Mutation(_ => Contact)
     async deleteContact(
         @Arg('id') id: number,
         @Ctx() context: Context
-    ) {
+    ): Promise<Contact> {
         return this.contactService.remove(id, context.userId)
     }
 }

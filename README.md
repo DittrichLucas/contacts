@@ -2,12 +2,12 @@
 
 
 TODOS:
-- [X] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
-- [X] Nome dos arquivos para inglês
-- [X] Criar docker-compose para subir a base de dados (ainda está apontando para o IP do Cuchi)
-- [X] Criar atalhos para subir e parar os containers
-- [X] Alterar todas as variáveis para inglês
-- [ ] Criar classes para contatos, sessoes e usuarios
+- [x] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
+- [x] Nome dos arquivos para inglês
+- [x] Criar docker-compose para subir a base de dados (ainda está apontando para o IP do Cuchi)
+- [x] Criar atalhos para subir e parar os containers
+- [x] Alterar todas as variáveis para inglês
+- [x] Criar classes para contatos, sessoes e usuarios
     - [x] Contacts
     - [x] Sessions
     - [x] Users

@@ -13,22 +13,22 @@ class Session {
 @Resolver()
 export default class SessionResolver {
     constructor(
-        @Inject(() => SessionService) private readonly session: SessionService
+        @Inject(() => SessionService) private readonly sessionService: SessionService
     ) {}
 
     @Mutation(_ => String)
-    async createSession(
+    async login(
         @Arg('email') email: string,
         @Arg('password') password: string
-    ) {
-        return this.session.login(email, password)
+    ): Promise<string> {
+        return this.sessionService.login(email, password)
     }
 
     @Mutation(_ => Session)
-    async deleteSession(
+    async logout(
         @Arg('token') token: string,
         @Ctx() context: Context
-    ) {
-        return this.session.logout(token, context.userId)
+    ): Promise<{ message: string }> {
+        return this.sessionService.logout(token, context.userId)
     }
 }
