@@ -1,5 +1,5 @@
-import { Entity, OneToOne, PrimaryColumn } from "typeorm";
-import { User } from "./user";
+import { Entity, OneToOne, PrimaryColumn } from "typeorm"
+import { User } from "./user"
 
 @Entity()
 export class Session {
