@@ -30,7 +30,8 @@
     "ts-node": "9.0.0",
     "type-graphql": "1.0.0",
     "typedi": "0.8.0",
-    "typeorm": "0.2.29"
+    "typeorm": "0.2.29",
+    "typeorm-typedi-extensions": "0.2.3"
   },
   "devDependencies": {
     "@types/bluebird": "3.5.24",
