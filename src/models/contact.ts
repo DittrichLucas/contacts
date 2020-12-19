@@ -1,10 +1,14 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId } from 'typeorm'
+import { User } from './user'
 
 @Entity()
 export class Contact {
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn('uuid')
+    id: string
+
+    @RelationId('user')
+    @Column({ name:'userId' })
+    userId: string
 
     @Column()
     name: string
@@ -12,6 +16,6 @@ export class Contact {
     @Column()
     email: string
 
-    @OneToOne(() => User, user => user.id)
-    userId: User
+    @ManyToOne(() => User, user => user.contacts)
+    user: User
 }

@@ -1,24 +1,25 @@
 {
+    "name": "default",
     "type": "postgres",
     "host": "localhost",
     "port": "5432",
     "username": "postgres",
     "password": "12345",
-    "database": "postgres",
+    "database": "schedule",
     "schema": "public",
-    "synchronize": true,
+    "synchronize": false,
     "logging": false,
     "entities": [
-        "src/model/**/*.ts"
+        "src/models/**/*.ts"
     ],
     "migrations": [
-        "migration/*.ts"
+        "migrations/*.ts"
     ],
     "subscribers": [
         "src/subscriber/**/*.ts"
     ],
     "cli": {
-        "entitiesDir": "src/model",
-        "migrationsDir": "./migration"
+        "entitiesDir": "src/models",
+        "migrationsDir": "./migrations"
     }
 }

@@ -1,11 +1,12 @@
-import { Entity, OneToOne, PrimaryColumn } from "typeorm"
-import { User } from "./user"
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { User } from './user'
 
 @Entity()
-export class Session {
-    @PrimaryColumn()
+export default class Session {
+    @PrimaryGeneratedColumn('uuid')
     token: string
 
-    @OneToOne(() => User, user => user.id)
-    userId: User
+    @OneToOne(() => User)
+    @JoinColumn()
+    user: User
 }
