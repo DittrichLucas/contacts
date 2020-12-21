@@ -1,87 +1,50 @@
 import { Inject, Service } from 'typedi'
-import { pool as db } from '../db'
-import ContactService, { Contact } from './contact'
-
-interface User {
-    id: number
-    email: string
-    name: string
-    password: string
-}
-
-type UserPayload = Omit<User, 'id'>
+import { Repository } from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
+import { Contact } from '../models/contact'
+import { User } from '../models/user'
+import { UserInput, UserUpdate } from '../graphql/dto/user'
+import ContactService from './contact'
 
 @Service()
 export default class UserService {
+    @Inject(() => ContactService) private readonly contactService: ContactService
+
     constructor(
-        @Inject(() => ContactService) private readonly contactService: ContactService
+        @InjectRepository(User) private readonly repository: Repository<User>,
     ) {}
 
-    async create({ name, email, password }: UserPayload): Promise<User> {
-        const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *'
-        const { rows }: { rows: User[] } = await db.query(query, [name, email, password])
-        const [user] = rows
-
-        return user
+    async create(user: UserInput): Promise<User> {
+        return this.repository.save(user)
     }
 
-    async update(id: number, { name, email, password }: UserPayload): Promise<User> {
-        const query = 'UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *'
-        const { rows }: { rows: User[] } = await db.query(query, [name, email, password, id])
-        const [user] = rows
+    async update(user: UserUpdate): Promise<User> {
+        await this.repository.update(user.id, user)
 
-        if (!user) {
-            throw new Error('User not found')
-        }
-
-        return user
+        return this.repository.findOneOrFail(user.id)
     }
 
-    async remove(id: number): Promise<User> {
-        const query = 'DELETE FROM users WHERE id = $1 RETURNING *'
-        const { rows }: { rows: User[] } = await db.query(query, [id])
-        const [user] = rows
+    async remove(id: string): Promise<User> {
+        const user = await this.repository.findOneOrFail(id)
 
-        if (!user) {
-            throw new Error('User not found')
-        }
+        await this.repository.remove({ ...user })
 
         return user
     }
 
     async findAll(): Promise<User[]> {
-        const result = await db.query('SELECT * FROM users')
-        return result.rows
+        return this.repository.find({ order: { name: 'ASC' } })
     }
 
     async findByEmail(email: string): Promise<User> {
-        const query = 'SELECT * FROM users WHERE email = $1'
-        const { rows }: { rows: User[] } = await db.query(query, [email])
-        const [user] = rows
-
-        if (!user) {
-            throw new Error('User not found')
-        }
-
-        return user
+        return this.repository.findOneOrFail({ where: { email: email } })
     }
 
-    async findById(id: number): Promise<User> {
-        const query = 'SELECT * FROM users WHERE id = $1'
-        const { rows }: { rows: User[] } = await db.query(query, [id])
-        const [user] = rows
-
-        if (!user) {
-            throw new Error('User not found')
-        }
-
-        return user
+    async findById(id: string): Promise<User> {
+        return this.repository.findOneOrFail(id)
     }
 
-    async findContacts(userId: number): Promise<Contact[]> {
-        const query = 'SELECT * FROM contacts WHERE user_id = $1'
-        const { rows }: { rows: Contact[] } = await db.query(query, [userId])
-
-        return rows
+    async findContacts(userId: string): Promise<Contact[]> {
+        return this.contactService.findByUserId(userId)
     }
 }

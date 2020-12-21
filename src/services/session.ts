@@ -1,36 +1,40 @@
-import crypto from 'crypto'
 import { Inject, Service } from 'typedi'
+import { Repository } from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { pool as db } from '../db'
+import Session from '../models/session'
 import UserService from './user'
 
 @Service()
 export default class SessionService {
     constructor(
+        @InjectRepository(Session) private readonly repository: Repository<Session>,
         @Inject(() => UserService) private readonly userService: UserService
     ) {}
 
-    async login(email: string, password: string): Promise<string> {
+    async login(email: string, password: string): Promise<Session> {
         const user = await this.userService.findByEmail(email)
 
         if (user.password !== password) {
             throw new Error('Incorrect username or password!')
         }
 
-        const query = 'INSERT INTO session (token, user_id) VALUES ($1, $2)'
-        const token = crypto.randomBytes(32).toString('hex')
-        await db.query(query, [token, user.id])
-
-        return token
+        return this.repository.save({ user })
     }
 
-    async logout(token: string, userId: number): Promise<{ message: string }> {
-        const query = `DELETE FROM session WHERE token = $1 AND user_id = $2 RETURNING *`
-        const { rows } = await db.query(query, [token, userId])
-        if (rows.length === 0) {
-            throw new Error('Session not found!')
-        }
+    async whoami(userId: string): Promise<{ name: string, id: string, password: string }> {
+        const { user } = await this.repository.findOneOrFail({ where: { user: { id: userId } }, relations: ['user'] })
+        return user
+    }
+
+    async logout(userId: string): Promise<{ message: string }> {
+        const session = await this.repository.findOneOrFail({ where: { user: { id: userId } } })
+        await this.repository.remove(session)
 
         return { message: 'Closed session!' }
+    }
+
+    async find(token: string) {
+        return this.repository.findOne({ where: { token }, relations: ['user'] })
     }
 }
