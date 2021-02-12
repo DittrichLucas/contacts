@@ -12,12 +12,12 @@ function authChecker({ context }: ResolverData<OptionalSessionContext>) {
 export default class Server {
     constructor(
         @Inject(() => ContextHandler) private readonly contextHandler: ContextHandler
-    ) {}
+    ) { }
 
     async start() {
         const schema = await buildSchema({
             container: Container,
-            resolvers: [`${__dirname}/resolvers/*`],
+            resolvers: [`${__dirname}/graphql/resolvers/*`],
             authChecker,
             validate: false
         })

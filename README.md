@@ -1,6 +1,5 @@
 # schedule
 
-
 TODOS:
 - [x] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
 - [x] Nome dos arquivos para inglês
@@ -19,18 +18,18 @@ TODOS:
     - [x] Create repositories for specific operations
 - [ ] Rewrite TODO items in English
 - [ ] Criar um readme decente
-- [ ] Use Redis for sessions
+- [x] Use Redis for sessions
 - [ ] Adicionar um logger
 - [ ] Usar variáveis de ambiente
 - [ ] Substituir tslint por eslint (tslint foi deprecado para o eslint)
 - [ ] Adicionar o https://tsed.io/ [NOPE :)]
     - TypeGraphQL already does this job (and it runs on top of Express)
     - If we don't use REST, we have no reason to use it
+    - NestJS
 - [ ] Hospedar isso no heroku
 - [ ] Adicionar commit com emoji https://gitmoji.carloscuesta.me/
 - [ ] Criar testes para todas as entidades
 - [ ] Add a REST API for everything
-
 
 # TODO:
 - Use *Payload types for method signature DONE
@@ -49,7 +48,7 @@ TODOS:
 - [X] Get rid of any cyclic imports from resolvers <-> services (dto)
 - [ ] Adicionar camada de repositórios
 - [X] Make migrations work (experiment: change from postgres to mysql)
-- [ ] Configure Redis and use it for sessions
+- [X] Configure Redis and use it for sessions
 - [ ] If you have time, implement support to class-validator
 - [ ] If you have more time, implement class validator verifications
       as part of a TypeOrm subscriber
@@ -57,3 +56,7 @@ TODOS:
 
 Add to the future: setting up pipelines (Github or BB)
 - And add migrations to the pipeline process!
+
+- [ ] internacionalização
+
+Ver sobre error handler pq não deve retornar internal server error

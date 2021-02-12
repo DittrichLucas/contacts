@@ -1,40 +1,27 @@
 import { Inject, Service } from 'typedi'
-import { Repository } from 'typeorm'
-import { InjectRepository } from 'typeorm-typedi-extensions'
-
-import Session from '../models/session'
+import { SessionStore } from '../store/session-store'
+import RedisSessionStore from '../store/redis-session-store'
 import UserService from './user'
 
 @Service()
 export default class SessionService {
     constructor(
-        @InjectRepository(Session) private readonly repository: Repository<Session>,
-        @Inject(() => UserService) private readonly userService: UserService
-    ) {}
+        @Inject(() => UserService) private readonly userService: UserService,
+        @Inject(() => RedisSessionStore) private readonly sessionStore: SessionStore
+    ) { }
 
-    async login(email: string, password: string): Promise<Session> {
+    async login(email: string, password: string): Promise<{ token: string }> {
         const user = await this.userService.findByEmail(email)
 
         if (user.password !== password) {
             throw new Error('Incorrect username or password!')
         }
 
-        return this.repository.save({ user })
+        const token = await this.sessionStore.create(user.id)
+        return { token }
     }
 
-    async whoami(userId: string): Promise<{ name: string, id: string, password: string }> {
-        const { user } = await this.repository.findOneOrFail({ where: { user: { id: userId } }, relations: ['user'] })
-        return user
-    }
-
-    async logout(userId: string): Promise<{ message: string }> {
-        const session = await this.repository.findOneOrFail({ where: { user: { id: userId } } })
-        await this.repository.remove(session)
-
-        return { message: 'Closed session!' }
-    }
-
-    async find(token: string) {
-        return this.repository.findOne({ where: { token }, relations: ['user'] })
+    async logout(token: string): Promise<{ message: string }> {
+        return this.sessionStore.delete(token)
     }
 }

@@ -1,8 +1,16 @@
 import { Inject, Service } from 'typedi'
+import { Repository } from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
 import { validate } from 'uuid'
 
-import Session from './models/session'
-import SessionService from './services/session'
+import { User } from './models/user'
+import { SessionStore } from './store/session-store'
+import RedisSessionStore from './store/redis-session-store'
+
+export interface Session {
+    token: string
+    user: User
+}
 
 type RequestContext = {
     req: {
@@ -23,8 +31,9 @@ export type OptionalSessionContext = RequestContext & {
 @Service()
 export default class ContextHandler {
     constructor(
-        @Inject(() => SessionService) private readonly sessionService: SessionService
-    ) {}
+        @Inject(() => RedisSessionStore) private readonly sessionStore: SessionStore,
+        @InjectRepository(User) private readonly userRepository: Repository<User>
+    ) { }
 
     async getContext(context: RequestContext): Promise<OptionalSessionContext> {
         const { authorization: token } = context.req.headers
@@ -32,8 +41,13 @@ export default class ContextHandler {
             return context
         }
 
-        const session = await this.sessionService.find(token)
+        const userId = await this.sessionStore.find(token)
+        if (!userId) {
+            return context
+        }
 
-        return { ...context, session }
+        const user = await this.userRepository.findOneOrFail(userId)
+
+        return { ...context, session: { token, user } }
     }
 }
