@@ -9,7 +9,7 @@ import { Logout, Session, UserSession } from '../dto/session'
 export default class SessionResolver {
     constructor(
         @Inject(() => SessionService) private readonly sessionService: SessionService
-    ) {}
+    ) { }
 
     @Mutation(_ => Session)
     async login(@Arg('email') email: string, @Arg('password') password: string): Promise<Session> {
@@ -19,11 +19,11 @@ export default class SessionResolver {
     @Authorized()
     @Query(_ => UserSession)
     async whoami(@Ctx() context: Context): Promise<UserSession> {
-        return this.sessionService.whoami(context.session.user.id)
+        return context.session.user
     }
 
     @Mutation(_ => Logout)
     async logout(@Ctx() context: Context): Promise<{ message: string }> {
-        return this.sessionService.logout(context.session.user.id)
+        return this.sessionService.logout(context.session.token)
     }
 }
