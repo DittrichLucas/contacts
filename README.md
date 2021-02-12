@@ -1,6 +1,5 @@
 # schedule
 
-
 TODOS:
 - [x] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
 - [x] Nome dos arquivos para inglês
@@ -32,7 +31,6 @@ TODOS:
 - [ ] Criar testes para todas as entidades
 - [ ] Add a REST API for everything
 
-
 # TODO:
 - Use *Payload types for method signature DONE
 - Create interface in this file for the contacts DONE
@@ -62,22 +60,3 @@ Add to the future: setting up pipelines (Github or BB)
 - [ ] internacionalização
 
 Ver sobre error handler pq não deve retornar internal server error
-
----
-
-
-
-
-
-  # db:
-  #   image: mysql
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: example
-
-
-  pinnout
-  peanout
-  peanut
-  peanote
