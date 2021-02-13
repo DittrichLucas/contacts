@@ -60,3 +60,5 @@ Add to the future: setting up pipelines (Github or BB)
 - [ ] internacionalização
 
 Ver sobre error handler pq não deve retornar internal server error
+
+Marcelo: Eu tive problemas na instalação das dependências (apollo-server-errors não instalou o graphql, daí tive que instalar na mão pra funcionar)
