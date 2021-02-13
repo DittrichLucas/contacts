@@ -9,8 +9,8 @@
         "dev:up": "docker-compose up -d",
         "dev:down": "docker-compose down",
         "test": "jest --forceExit --coverage",
-        "lint": "tslint --project .",
-        "fix": "tslint --project . --fix",
+        "lint": "eslint . --ext .ts",
+        "fix": "eslint . --ext .ts --fix",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
     "repository": {
