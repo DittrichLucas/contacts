@@ -15,6 +15,6 @@ export class User {
     @Column()
     password: string
 
-    @OneToMany(() => Contact, contact => contact.user)
+    @OneToMany(() => Contact, (contact) => contact.user)
     contacts: Contact[]
 }

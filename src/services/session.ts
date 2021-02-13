@@ -6,8 +6,10 @@ import UserService from './user'
 @Service()
 export default class SessionService {
     constructor(
-        @Inject(() => UserService) private readonly userService: UserService,
-        @Inject(() => RedisSessionStore) private readonly sessionStore: SessionStore
+        @Inject(() => UserService)
+        private readonly userService: UserService,
+        @Inject(() => RedisSessionStore)
+        private readonly sessionStore: SessionStore
     ) { }
 
     async login(email: string, password: string): Promise<{ token: string }> {

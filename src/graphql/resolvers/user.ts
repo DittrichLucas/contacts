@@ -24,35 +24,35 @@ export default class UserResolver {
         @Inject(() => UserService) private readonly userService: UserService
     ) {}
 
-    @Query(_ => [UserObject])
+    @Query((_) => [UserObject])
     async findAll(): Promise<User[]> {
         return this.userService.findAll()
     }
 
-    @Query(_ => [UserObject])
+    @Query((_) => [UserObject])
     async findById(@Arg('id') id: string): Promise<User> {
         return this.userService.findById(id)
     }
 
     @Authorized()
-    @Query(_ => [ContactObject])
+    @Query((_) => [ContactObject])
     async findContacts(@Ctx() context: Context): Promise<Contact[]> {
         return this.userService.findContacts(context.session.user.id)
     }
 
-    @Mutation(_ => UserObject)
+    @Mutation((_) => UserObject)
     async createUser(@Arg('user') user: UserInput): Promise<UserObject> {
         return this.userService.create(user)
     }
 
     @Authorized()
-    @Mutation(_ => UserObject)
+    @Mutation((_) => UserObject)
     async updateUser(@Arg('user') user: UserUpdate): Promise<UserObject> {
         return this.userService.update(user)
     }
 
     @Authorized()
-    @Mutation(_ => UserObject)
+    @Mutation((_) => UserObject)
     async removeUser(@Ctx() context: Context): Promise<UserObject> {
         return this.userService.remove(context.session.user.id)
     }

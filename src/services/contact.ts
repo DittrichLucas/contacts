@@ -36,6 +36,7 @@ export default class ContactService {
     }
 
     async findByUserId(userId: string): Promise<Contact[]> {
-        return this.repository.find({ where: { user: { id: userId } }, relations: ['user'] })
+        return this.repository
+            .find({ where: { user: { id: userId } }, relations: ['user'] })
     }
 }

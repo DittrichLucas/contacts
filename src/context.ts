@@ -31,8 +31,10 @@ export type OptionalSessionContext = RequestContext & {
 @Service()
 export default class ContextHandler {
     constructor(
-        @Inject(() => RedisSessionStore) private readonly sessionStore: SessionStore,
-        @InjectRepository(User) private readonly userRepository: Repository<User>
+        @Inject(() => RedisSessionStore)
+        private readonly sessionStore: SessionStore,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>
     ) { }
 
     async getContext(context: RequestContext): Promise<OptionalSessionContext> {

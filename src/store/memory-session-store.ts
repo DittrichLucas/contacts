@@ -1,6 +1,8 @@
 import { v4 } from 'uuid'
 import { SessionStore } from './session-store'
 
+const SPACE = 2
+
 export default class MemorySessionStore implements SessionStore {
     private readonly sessions: { [key: string]: string } = {}
 
@@ -12,7 +14,7 @@ export default class MemorySessionStore implements SessionStore {
     }
 
     async find(token: string): Promise<string | null> {
-        console.log('all sessions', JSON.stringify(this.sessions, null, 2))
+        console.log('all sessions', JSON.stringify(this.sessions, null, SPACE))
         console.log('finding user by token', { token })
         return this.sessions[token] || null
     }
@@ -21,6 +23,8 @@ export default class MemorySessionStore implements SessionStore {
         console.log('deleting session', { token })
         const userId = this.sessions[token]
         delete this.sessions[token]
-        return userId ? { message: 'Token removed!' } : { message: 'Token not found' }
+        return userId
+            ? { message: 'Token removed!' }
+            : { message: 'Token not found' }
     }
 }
