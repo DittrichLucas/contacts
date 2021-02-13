@@ -13,7 +13,15 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
+      - uses: borales/actions-yarn@v2.0.0
+        with:
           cmd: lint
+      - uses: borales/actions-yarn@v2.0.0
+        with:
           cmd: dev:init
+      - uses: borales/actions-yarn@v2.0.0
+        with:
           cmd: typeorm migration:run
+      - uses: borales/actions-yarn@v2.0.0
+        with:
           cmd: start
