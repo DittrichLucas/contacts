@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId } from 'typeorm'
+import {
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    RelationId
+} from 'typeorm'
 import { User } from './user'
 
 @Entity()
@@ -7,7 +13,7 @@ export class Contact {
     id: string
 
     @RelationId('user')
-    @Column({ name:'userId' })
+    @Column({ name: 'userId' })
     userId: string
 
     @Column()
@@ -16,6 +22,6 @@ export class Contact {
     @Column()
     email: string
 
-    @ManyToOne(() => User, user => user.contacts)
+    @ManyToOne(() => User, (user) => user.contacts)
     user: User
 }

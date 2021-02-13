@@ -4,6 +4,8 @@ import { buildSchema, ResolverData } from 'type-graphql'
 
 import ContextHandler, { OptionalSessionContext } from './context'
 
+const PORT = 3000
+
 function authChecker({ context }: ResolverData<OptionalSessionContext>) {
     return context.session !== undefined
 }
@@ -11,7 +13,8 @@ function authChecker({ context }: ResolverData<OptionalSessionContext>) {
 @Service()
 export default class Server {
     constructor(
-        @Inject(() => ContextHandler) private readonly contextHandler: ContextHandler
+        @Inject(() => ContextHandler)
+        private readonly contextHandler: ContextHandler
     ) { }
 
     async start() {
@@ -27,6 +30,6 @@ export default class Server {
             context: this.contextHandler.getContext.bind(this.contextHandler)
         })
 
-        await server.listen(3000)
+        await server.listen(PORT)
     }
 }

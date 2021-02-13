@@ -8,11 +8,12 @@ import ContactService from './contact'
 
 @Service()
 export default class UserService {
-    @Inject(() => ContactService) private readonly contactService: ContactService
+    @Inject(() => ContactService)
+    private readonly contactService: ContactService
 
     constructor(
         @InjectRepository(User) private readonly repository: Repository<User>,
-    ) {}
+    ) { }
 
     async create(user: UserInput): Promise<User> {
         return this.repository.save(user)

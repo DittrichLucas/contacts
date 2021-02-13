@@ -1,0 +1,52 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "max-len": [
+            "error",
+            {
+                "code": 80,
+                "comments": 80,
+                "ignoreTrailingComments": true
+            }
+        ],
+        "no-console": "warn",
+        "semi": [
+            "error",
+            "never"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "arrow-parens": [
+            "error",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "indent": "error",
+        "linebreak-style": "error",
+        "complexity": [
+            "error",
+            5
+        ],
+        "arrow-body-style": "error",
+        "spaced-comment": [
+            "error",
+            "always",
+            {
+                "exceptions": [
+                    "-"
+                ]
+            }
+        ],
+        "no-magic-numbers": "error",
+        "@typescript-eslint/no-explicit-any": "error"
+    }
+}

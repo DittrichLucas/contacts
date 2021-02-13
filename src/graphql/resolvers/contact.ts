@@ -15,17 +15,21 @@ import { ContactInput, ContactObject, ContactUpdate } from '../dto/contact'
 @Resolver()
 export default class ContactsResolver {
     constructor(
-        @Inject(() => ContactService) private readonly contactService: ContactService
-    ) {}
+        @Inject(() => ContactService)
+        private readonly contactService: ContactService
+    ) { }
 
     @Authorized()
-    @Query(_ => ContactObject)
-    async findContact(@Arg('id') id: string, @Ctx() context: Context): Promise<ContactObject> {
+    @Query((_) => ContactObject)
+    async findContact(
+        @Arg('id') id: string,
+        @Ctx() context: Context
+    ): Promise<ContactObject> {
         return this.contactService.findById(id, context.session.user.id)
     }
 
     @Authorized()
-    @Mutation(_ => ContactObject)
+    @Mutation((_) => ContactObject)
     async createContact(
         @Arg('contact') contact: ContactInput, @Ctx() context: Context
     ): Promise<ContactObject> {
@@ -33,7 +37,7 @@ export default class ContactsResolver {
     }
 
     @Authorized()
-    @Mutation(_ => ContactObject)
+    @Mutation((_) => ContactObject)
     async updateContact(
         @Arg('contact') contact: ContactUpdate, @Ctx() context: Context
     ): Promise<ContactObject> {
@@ -41,8 +45,11 @@ export default class ContactsResolver {
     }
 
     @Authorized()
-    @Mutation(_ => ContactObject)
-    async deleteContact(@Arg('id') id: string, @Ctx() context: Context): Promise<ContactObject> {
+    @Mutation((_) => ContactObject)
+    async deleteContact(
+        @Arg('id') id: string,
+        @Ctx() context: Context
+    ): Promise<ContactObject> {
         return this.contactService.remove(id, context.session.user.id)
     }
 }
