@@ -8,21 +8,25 @@ import { Logout, Session, UserSession } from '../dto/session'
 @Resolver()
 export default class SessionResolver {
     constructor(
-        @Inject(() => SessionService) private readonly sessionService: SessionService
+        @Inject(() => SessionService)
+        private readonly sessionService: SessionService
     ) { }
 
-    @Mutation(_ => Session)
-    async login(@Arg('email') email: string, @Arg('password') password: string): Promise<Session> {
+    @Mutation((_) => Session)
+    async login(
+        @Arg('email') email: string,
+        @Arg('password') password: string
+    ): Promise<Session> {
         return this.sessionService.login(email, password)
     }
 
     @Authorized()
-    @Query(_ => UserSession)
+    @Query((_) => UserSession)
     async whoami(@Ctx() context: Context): Promise<UserSession> {
         return context.session.user
     }
 
-    @Mutation(_ => Logout)
+    @Mutation((_) => Logout)
     async logout(@Ctx() context: Context): Promise<{ message: string }> {
         return this.sessionService.logout(context.session.token)
     }
