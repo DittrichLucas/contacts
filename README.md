@@ -1,5 +1,7 @@
 # schedule
 
+![Build project](https://github.com/DittrichLucas/schedule/workflows/Build%20project/badge.svg)
+
 TODOS:
 - [x] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
 - [x] Nome dos arquivos para inglês
@@ -60,5 +62,3 @@ Add to the future: setting up pipelines (Github or BB)
 - [ ] internacionalização
 
 Ver sobre error handler pq não deve retornar internal server error
-
-Marcelo: Eu tive problemas na instalação das dependências (apollo-server-errors não instalou o graphql, daí tive que instalar na mão pra funcionar)

@@ -1,0 +1,18 @@
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: "30 1 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v3
+      with:
+        stale-issue-message: 'This issue is considered stale, please check if it will still be considered. If nothing is done, it will be closed in 7 days.'
+        stale-pr-message: 'This pull request is considered stale, please check if it will still be considered. If nothing is done, it will be closed in 7 days.'
+        stale-issue-label: 'stale'
+        stale-pr-label: 'stale'
+        days-before-stale: 30
+        days-before-close: 7
