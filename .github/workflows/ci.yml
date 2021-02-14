@@ -20,11 +20,11 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Setup docker
-        run: yarn dev:init
+      # - name: Setup docker
+      #   run: yarn dev:init
 
-      - name: Run migrations
-        run: yarn typeorm migration:run
+      # - name: Run migrations
+      #   run: yarn typeorm migration:run
 
-      - name: Start application
-        run: yarn start
+      # - name: Start application
+      #   run: yarn start
