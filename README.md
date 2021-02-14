@@ -1,5 +1,7 @@
 # schedule
 
+![Build project](https://github.com/DittrichLucas/schedule/workflows/Build%20project/badge.svg)
+
 TODOS:
 - [x] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
 - [x] Nome dos arquivos para inglês
