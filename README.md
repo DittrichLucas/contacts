@@ -60,5 +60,3 @@ Add to the future: setting up pipelines (Github or BB)
 - And add migrations to the pipeline process!
 
 - [ ] internacionalização
-
-Ver sobre error handler pq não deve retornar internal server error
