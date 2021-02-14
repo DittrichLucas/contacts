@@ -50,6 +50,7 @@
         "@typescript-eslint/eslint-plugin": "4.15.0",
         "@typescript-eslint/parser": "4.15.0",
         "commitizen": "4.2.3",
+        "cz-conventional-changelog": "3.3.0",
         "eslint": "7.19.0",
         "graphql": "15.3.0",
         "husky": "5.0.9",
@@ -60,5 +61,23 @@
     },
     "resolutions": {
         "graphql-tools": "4.0.8"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "lint-staged": {
+        "*.ts": [
+            "yarn fix",
+            "git add"
+        ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }
