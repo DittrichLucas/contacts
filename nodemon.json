@@ -1,0 +1,11 @@
+{
+    "restartable": "rs",
+    "ignore": [
+        ".git",
+        ".github",
+        "node_modules/**/node_modules",
+        "migrations/*.ts",
+        "test/*.ts"
+    ],
+    "watch": "src/"
+}
