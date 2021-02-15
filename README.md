@@ -60,3 +60,5 @@ Add to the future: setting up pipelines (Github or BB)
 - And add migrations to the pipeline process!
 
 - [ ] internacionalização
+
+Improve pipelines
