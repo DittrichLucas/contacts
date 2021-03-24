@@ -27,6 +27,7 @@
     "dependencies": {
         "apollo-server": "2.21.0",
         "bluebird": "3.7.2",
+        "class-validator": "0.13.1",
         "graphql-tools": "7.0.3",
         "ioredis": "4.22.0",
         "pg": "8.5.1",
@@ -50,6 +51,7 @@
         "@types/uuid": "8.3.0",
         "@typescript-eslint/eslint-plugin": "4.15.0",
         "@typescript-eslint/parser": "4.15.0",
+        "class-transformer": "0.4.0",
         "commitizen": "4.2.3",
         "cz-conventional-changelog": "3.3.0",
         "eslint": "7.19.0",

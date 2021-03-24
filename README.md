@@ -23,7 +23,7 @@ TODOS:
 - [x] Use Redis for sessions
 - [ ] Adicionar um logger
 - [ ] Usar variáveis de ambiente
-- [ ] Substituir tslint por eslint (tslint foi deprecado para o eslint)
+- [x] Substituir tslint por eslint (tslint foi deprecado para o eslint)
 - [ ] Adicionar o https://tsed.io/ [NOPE :)]
     - TypeGraphQL already does this job (and it runs on top of Express)
     - If we don't use REST, we have no reason to use it
@@ -48,11 +48,11 @@ TODOS:
       have to perform two database operations
 - [X] /\ same for remove
 - [X] Get rid of any cyclic imports from resolvers <-> services (dto)
-- [ ] Adicionar camada de repositórios
+- [ ] Adicionar camada de repositórios (?)
 - [X] Make migrations work (experiment: change from postgres to mysql)
 - [X] Configure Redis and use it for sessions
-- [ ] If you have time, implement support to class-validator
-- [ ] If you have more time, implement class validator verifications
+- [x] If you have time, implement support to class-validator
+- [x] If you have more time, implement class validator verifications
       as part of a TypeOrm subscriber
 - [ ] If you REALLY have a lot of free time, make this work with Express (REST)
 
