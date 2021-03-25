@@ -22,7 +22,7 @@ export default class Server {
             container: Container,
             resolvers: [`${__dirname}/graphql/resolvers/*`],
             authChecker,
-            validate: false
+            validate: true
         })
         const server = new ApolloServer({
             playground: true,

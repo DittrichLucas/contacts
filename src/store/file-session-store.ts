@@ -18,8 +18,8 @@ export class FileSessionStore implements SessionStore {
         sessions[token] = userId
 
         fs.writeFileSync(SESSION_JSON, JSON.stringify(
-            sessions, null, SPACE_JSON)
-        )
+            sessions, null, SPACE_JSON
+        ))
 
         return token
     }
