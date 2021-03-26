@@ -1,5 +1,5 @@
 {
-    "name": "agenda-node",
+    "name": "contacts",
     "version": "1.0.0",
     "description": "",
     "main": "src/index.js",
@@ -16,14 +16,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DittrichLucas/schedule.git"
+        "url": "git+https://github.com/DittrichLucas/contacts.git"
     },
     "author": "Lucas Dittrich",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/DittrichLucas/schedule/issues"
+        "url": "https://github.com/DittrichLucas/contacts/issues"
     },
-    "homepage": "https://github.com/DittrichLucas/schedule#readme",
+    "homepage": "https://github.com/DittrichLucas/contacts#readme",
     "dependencies": {
         "apollo-server": "2.21.0",
         "bluebird": "3.7.2",
