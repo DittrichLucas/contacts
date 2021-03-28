@@ -1,6 +1,24 @@
-# contacts
+<!-- Logo -->
+<p align="center">
+  <img width="150" src="./doc/assets/contacts.png" alt="adonimals-UI logo" />
 
-![Build project](https://github.com/DittrichLucas/contacts/workflows/Build%20project/badge.svg)
+</p>
+<div align="center">
+    Icon made by
+    <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a>
+    from
+    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+</div>
+
+<!-- Name -->
+<h1 align="center" style="margin-top:10px">Contacts</h1>
+
+<!-- Badges -->
+<div align="center">
+
+![Build Status](https://github.com/DittrichLucas/contacts/workflows/Build%20project/badge.svg)
+
+</div>
 
 ### Roadmap
 - [x] Deploy [basic gitflow](https://tableless.com.br/git-flow-introducao/)
@@ -15,45 +33,29 @@
 - [x] Use typedi to inject classes
 - [x] Better type responses and requests
 - [x] Add typeorm:
-    - [x] Create models for all entities integrating with TypeORM (Get rid of Postgres dependency (!))
-    - [x] Criar conexão usando arquivo de configuração do TypeORM
-    - [ ] Create repositories for specific operations
-- [x] Rewrite TODO items in English
-- [ ] Create a decent readme
-- [x] Use Redis for sessions
-- [ ] Add logger
-- [ ] Use environments variables
+    - [x] create models for all entities integrating with TypeORM (Get rid of Postgres dependency (!))
+    - [x] create connection using TypeORM configuration file
+    - [ ] create repositories for specific operations (?)
 - [x] Replace tslint with eslint (tslint has been deprecated for eslint)
-- [ ] Add a REST API for everything
-    - [ ] Add [decorators](https://tsed.io/)
-    - [ ] NestJS
-- [ ] Add commit with [emoji](https://gitmoji.carloscuesta.me/)
-- [ ] Create tests for all entities
-- [ ] Host the API on heroku
-
-# TODO:
-- [x] Use *Payload types for method signature
-- [x] Create interface in this file for the contacts
-- [x] Get rid of MessagePromise. Return Promise<Contact> when necessary
-- [x] Invert knowledge domain: a user should know what a contact is, but a
-  contact doesn't need to know a user. Add method findContacts
-- [x] Add types for the return of methods in resolvers
-- [x] Spike TypeOrm configuration if you have some free time!
-
-# More TODOs:
+- [x] Rewrite TODO items in English
+- [x] Create a decent readme
+- [x] Use Redis for sessions
 - [x] Ensure the app runs :)
-- [x] Use proper .update method when updating values, so that you don't
-      have to perform two database operations
+- [x] Use proper .update method when updating values, so that you don't have to perform two database operations
 - [x] /\ same for remove
 - [x] Get rid of any cyclic imports from resolvers <-> services (dto)
 - [x] Make migrations work (experiment: change from postgres to mysql)
 - [x] Configure Redis and use it for sessions
-- [x] If you have time, implement support to class-validator
-- [x] If you have more time, implement class validator verifications
-      as part of a TypeOrm subscriber
-- [ ] If you REALLY have a lot of free time, make this work with Express (REST)
-
-Add to the future: setting up pipelines (Github or BB)
-- And add migrations to the pipeline process!
-
-- [ ] internationalization
+- [x] Implement support to class-validator
+- [x] Implement class validator verifications as part of a TypeOrm subscriber
+- [ ] Setting up pipelines (Github or BB)
+    - [ ] add migrations to the pipeline process!
+- [ ] Add logger
+- [ ] Use environments variables
+- [ ] Add a REST API for everything
+    - [ ] add [decorators](https://tsed.io/)
+    - [ ] nestJS
+- [ ] Create tests for all entities
+- [ ] Host the API on heroku
+- [ ] Add commit with [emoji](https://gitmoji.carloscuesta.me/)
+- [ ] Internationalization
