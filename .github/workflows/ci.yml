@@ -1,9 +1,8 @@
-name: Build project
+name: build
 on: [pull_request]
 
 jobs:
   build:
-    name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,20 +10,11 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install yarn
+      - name: install yarn
         run: npm install -g yarn
 
-      - name: Install dependencies
+      - name: install dependencies
         run: yarn
 
-      - name: Lint
+      - name: lint
         run: yarn lint
-
-      # - name: Setup docker
-      #   run: yarn dev:init
-
-      # - name: Run migrations
-      #   run: yarn typeorm migration:run
-
-      # - name: Start application
-      #   run: yarn start

@@ -1,4 +1,4 @@
-name: Mark stale issues and pull requests
+name: stale
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
       with:
         stale-issue-message: 'This issue is considered stale, please check if it will still be considered. If nothing is done, it will be closed in 7 days.'
         stale-pr-message: 'This pull request is considered stale, please check if it will still be considered. If nothing is done, it will be closed in 7 days.'
-        stale-issue-label: 'stale'
-        stale-pr-label: 'stale'
+        stale-issue-label: ':cold_face: stale'
+        stale-pr-label: ':cold_face: stale'
         days-before-stale: 30
         days-before-close: 7

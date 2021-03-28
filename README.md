@@ -1,62 +1,61 @@
-# contacts
+<!-- Logo -->
+<p align="center">
+  <img width="150" src="./doc/assets/contacts.png" alt="adonimals-UI logo" />
 
-![Build project](https://github.com/DittrichLucas/contacts/workflows/Build%20project/badge.svg)
+</p>
+<div align="center">
+    Icon made by
+    <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a>
+    from
+    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+</div>
 
-TODOS:
-- [x] Implantar gitflow básico https://tableless.com.br/git-flow-introducao/
-- [x] Nome dos arquivos para inglês
-- [x] Criar docker-compose para subir a base de dados (ainda está apontando para o IP do Cuchi)
-- [x] Criar atalhos para subir e parar os containers
-- [x] Alterar todas as variáveis para inglês
-- [x] Criar classes para contatos, sessoes e usuarios
-    - [x] Contacts
-    - [x] Sessions
-    - [x] Users
-- [x] Vou precisar usar o typedi para injetar as classes
-- [x] Tipar melhor as respostas e requisições
-- [x] Adicionar typeorm
-    - [x] Create models for all entities integrating with TypeORM (Get rid of Postgres dependency (!))
-    - [x] Criar conexão usando arquivo de configuração do typeorm
-    - [x] Create repositories for specific operations
-- [ ] Rewrite TODO items in English
-- [ ] Criar um readme decente
+<!-- Name -->
+<h1 align="center" style="margin-top:10px">Contacts</h1>
+
+<!-- Badges -->
+<div align="center">
+
+![Build Status](https://github.com/DittrichLucas/contacts/workflows/Build%20project/badge.svg)
+
+</div>
+
+### Roadmap
+- [x] Deploy [basic gitflow](https://tableless.com.br/git-flow-introducao/)
+- [x] Rename files to English
+- [x] Create docker-compose to upload the database (points to an old IP)
+- [x] Create shortcuts to raise and stop containers
+- [x] Change all variables to English
+- [x] Create classes for contacts, sessions and users:
+    - [x] contacts
+    - [x] sessions
+    - [x] users
+- [x] Use typedi to inject classes
+- [x] Better type responses and requests
+- [x] Add typeorm:
+    - [x] create models for all entities integrating with TypeORM (Get rid of Postgres dependency (!))
+    - [x] create connection using TypeORM configuration file
+    - [ ] create repositories for specific operations (?)
+- [x] Replace tslint with eslint (tslint has been deprecated for eslint)
+- [x] Rewrite TODO items in English
+- [x] Create a decent readme
 - [x] Use Redis for sessions
-- [ ] Adicionar um logger
-- [ ] Usar variáveis de ambiente
-- [x] Substituir tslint por eslint (tslint foi deprecado para o eslint)
-- [ ] Adicionar o https://tsed.io/ [NOPE :)]
-    - TypeGraphQL already does this job (and it runs on top of Express)
-    - If we don't use REST, we have no reason to use it
-    - NestJS
-- [ ] Hospedar isso no heroku
-- [ ] Adicionar commit com emoji https://gitmoji.carloscuesta.me/
-- [ ] Criar testes para todas as entidades
+- [x] Ensure the app runs :)
+- [x] Use proper .update method when updating values, so that you don't have to perform two database operations
+- [x] /\ same for remove
+- [x] Get rid of any cyclic imports from resolvers <-> services (dto)
+- [x] Make migrations work (experiment: change from postgres to mysql)
+- [x] Configure Redis and use it for sessions
+- [x] Implement support to class-validator
+- [x] Implement class validator verifications as part of a TypeOrm subscriber
+- [ ] Setting up pipelines (Github or BB)
+    - [ ] add migrations to the pipeline process!
+- [ ] Add logger
+- [ ] Use environments variables
 - [ ] Add a REST API for everything
-
-# TODO:
-- Use *Payload types for method signature DONE
-- Create interface in this file for the contacts DONE
-- Get rid of MessagePromise. Return Promise<Contact> when necessary DONE
-- Invert knowledge domain: a user should know what a contact is, but a
-  contact doesn't need to know a user. Add method findContacts
-- Add types for the return of methods in resolvers DONE
-- Spike TypeOrm configuration if you have some free time!
-
-# More TODOs:
-- [X] Ensure the app runs :)
-- [X] Use proper .update method when updating values, so that you don't
-      have to perform two database operations
-- [X] /\ same for remove
-- [X] Get rid of any cyclic imports from resolvers <-> services (dto)
-- [ ] Adicionar camada de repositórios (?)
-- [X] Make migrations work (experiment: change from postgres to mysql)
-- [X] Configure Redis and use it for sessions
-- [x] If you have time, implement support to class-validator
-- [x] If you have more time, implement class validator verifications
-      as part of a TypeOrm subscriber
-- [ ] If you REALLY have a lot of free time, make this work with Express (REST)
-
-Add to the future: setting up pipelines (Github or BB)
-- And add migrations to the pipeline process!
-
-- [ ] internacionalização
+    - [ ] add [decorators](https://tsed.io/)
+    - [ ] nestJS
+- [ ] Create tests for all entities
+- [ ] Host the API on heroku
+- [ ] Add commit with [emoji](https://gitmoji.carloscuesta.me/)
+- [ ] Internationalization
