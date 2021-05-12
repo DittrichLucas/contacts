@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server'
+import Logger from '../logger'
 import { Container, Inject, Service } from 'typedi'
 import { buildSchema, ResolverData } from 'type-graphql'
 
@@ -30,6 +31,8 @@ export default class Server {
             context: this.contextHandler.getContext.bind(this.contextHandler)
         })
 
-        await server.listen(PORT)
+        await server.listen(PORT, () => {
+            Logger.info(`Server running on port ${PORT}`)
+        })
     }
 }

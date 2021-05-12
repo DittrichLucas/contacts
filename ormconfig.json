@@ -8,7 +8,7 @@
     "database": "contact",
     "schema": "public",
     "synchronize": false,
-    "logging": false,
+    "logging": ["error", "warn", "log"],
     "entities": [
         "src/models/**/*.ts"
     ],

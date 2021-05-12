@@ -2,16 +2,12 @@ import {
     Arg,
     Authorized,
     Ctx,
-    Field,
-    InputType,
     Mutation,
-    ObjectType,
     Query,
     Resolver
 } from 'type-graphql'
 import { Inject } from 'typedi'
 import { User } from '../../models/user'
-
 import { Context } from '../../context'
 import { Contact } from '../../models/contact'
 import UserService from '../../services/user'
