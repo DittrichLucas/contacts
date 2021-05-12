@@ -19,3 +19,7 @@
 ![Build Status](https://github.com/DittrichLucas/contacts/workflows/Build%20project/badge.svg)
 
 </div>
+
+## Next Steps
+
+Check out the [roadmap](./ROADMAP.md)
