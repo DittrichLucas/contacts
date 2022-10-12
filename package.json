@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/DittrichLucas/contacts#readme",
     "dependencies": {
-        "apollo-server": "2.21.0",
+        "apollo-server": "2.25.4",
         "bluebird": "3.7.2",
         "class-validator": "0.13.1",
         "graphql-tools": "7.0.3",
