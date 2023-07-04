@@ -27,6 +27,7 @@
         "apollo-server": "2.21.0",
         "bluebird": "3.7.2",
         "class-validator": "0.13.1",
+        "config": "3.3.6",
         "graphql-tools": "7.0.3",
         "ioredis": "4.22.0",
         "pg": "8.5.1",
